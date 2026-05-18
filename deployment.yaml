@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dapr-demo-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dapr-demo
+  template:
+    metadata:
+      labels:
+        app: dapr-demo
+    spec:
+      containers:
+      - name: dotnet-container
+        image: ap-singapore-1.ocir.io/axiuoqy9j3rt/dapr-demo:v1
+        ports:
+        - containerPort: 8080
+annotations:
+  dapr.io/enabled: "true"
+  dapr.io/app-id: "dapr-demo"
+  dapr.io/app-port: "80"
