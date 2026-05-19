@@ -159,6 +159,19 @@ public class WeatherForecastController : ControllerBase
         await _daprClient.DeleteBulkStateAsync(StateStore, deleteItems);
         return Ok(new { message = $"Deleted {deleteItems.Count} keys" });
     }
+
+    [Authorize]
+    [HttpGet("my-token")]
+    public async Task<IActionResult> GetMyToken([FromServices] TokenStateService tokenService)
+    {
+        var userId = User.FindFirst("sub")?.Value!;
+        var session = await tokenService.GetTokenAsync(userId);
+
+        if (session == null || session.IsExpired)
+            return Unauthorized(new { message = "Session expired, please login again" });
+
+        return Ok(new { session.AccessToken, session.ExpiresAt });
+    }
 }
 
 // ── Supporting model for ETag endpoint ────────────────────────
