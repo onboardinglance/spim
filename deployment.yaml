@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dapr-demo-deployment
+  namespace: default
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: dapr-demo
@@ -11,13 +12,77 @@ spec:
     metadata:
       labels:
         app: dapr-demo
+# these annotations trigger the Dapr sidecar injection but only works if connected to internet
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "dapr-demo"
+        dapr.io/app-port: "8080"
     spec:
       containers:
-      - name: dotnet-container
-        image: ap-singapore-1.ocir.io/axiuoqy9j3rt/dapr-demo:v1
+      - name: dapr-demo
+        image: dapr-demo:latest
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: ASPNETCORE_URLS
+          value: "http://+:8080" # Listen on all network interfaces
+        - name: Oidc__Authority
+          value: "http://localhost:8081/realms/demo"
+        - name: Oidc__MetadataAddress
+          value: "http://keycloak-service:8080/realms/demo/.well-known/openid-configuration"
+        - name: Oidc__ClientSecret
+          value: "7Q7tCTL0yJNw2sP0mCh3TPjCSP8GkkQm"
+        livenessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
-annotations:
-  dapr.io/enabled: "true"
-  dapr.io/app-id: "dapr-demo"
-  dapr.io/app-port: "80"
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dapr-demo-service
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: dapr-demo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+
+# specs for air gapped environment
+  # spec:
+  #     # Nexus registry secret
+  #     imagePullSecrets:
+  #     - name: local-registry-secret 
+  #     containers:
+  #     - name: dapr-demo
+  #       # Change this to the image path 
+  #       image: my-local-registry.com/my-project/dotnet-backend:latest 
+  #       ports:
+  #       - containerPort: 8080
+  #       # Prevent Kubernetes from attempting to check the internet for a newer version
+  #       imagePullPolicy: IfNotPresent
+
+# specs for OKE
+    # spec:
+    #   containers:
+    #   - name: dapr-demo
+    #     image: ap-singapore-1.ocir.io/axiuoqy9j3rt/dapr-demo:v1
+    #     ports:
+    #     - containerPort: 8080
+    #     imagePullPolicy: Always
