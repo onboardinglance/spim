@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dapr-demo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f380126e3b25cb70b9eec1e35fc9cdd11f1fedd7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63d402e640bd75770d387624bab9b746b465ea50")]
 [assembly: System.Reflection.AssemblyProductAttribute("dapr-demo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dapr-demo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

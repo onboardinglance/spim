@@ -1,0 +1,25 @@
+# This is a Dapr component configuration file to define infrastructure connections for a Redis state store in OKE.
+# If we switch to another cloud platform provider, need to change this
+
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  # This name MUST match the string used in your .NET code
+  name: statestore
+  namespace: default
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: "redis-master.default.svc.cluster.local:6379" 
+  - name: redisPassword
+    secretKeyRef:
+      name: redis-secret
+      key: redis-password
+  - name: enableTLS
+    value: "false" # Set to true if your instance requires TLS
+auth:
+  secretStore: kubernetes
+
+#kubectl create secret generic redis-secret --from-literal=redis-password=password 

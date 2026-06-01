@@ -15,7 +15,10 @@ public class TokenStateService
     // Set state with TTL in the state store 
     public async Task StoreTokenAsync(TokenSession session)
     {
-        var ttl = (int)(session.ExpiresAt - DateTimeOffset.UtcNow).TotalSeconds;
+        // Ensure TTL is never negative to avoid Dapr sidecar errors
+        var remainingTime = (session.ExpiresAt - DateTimeOffset.UtcNow).TotalSeconds;
+        var ttl = Math.Max(0, (int)remainingTime);
+
         var metadata = new Dictionary<string, string>
         {
             { "ttlInSeconds", ttl.ToString() }
@@ -33,7 +36,7 @@ public class TokenStateService
     // Delete state from the state store
     public async Task RevokeTokenAsync(string userId)
     {
-        await _daprClient.DeleteStateAsync(StateStore, $"token:{userId}");
+        await _daprClient.DeleteStateAsync(StateStore, $"token-{userId}");
     }
 
 

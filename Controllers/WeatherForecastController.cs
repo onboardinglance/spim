@@ -147,7 +147,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet("bulk")]
     public async Task<IActionResult> GetBulk([FromQuery] string keys)
     {
-        var keyList = keys.Split(',').ToList();
+         var keyList = keys.Split(',').ToList();
         var results = await _daprClient.GetBulkStateAsync(StateStore, keyList, parallelism: 3);
         return Ok(results.Select(r => new { r.Key, r.Value, r.ETag }));
     }
@@ -166,7 +166,11 @@ public class WeatherForecastController : ControllerBase
     [HttpGet("my-token")]
     public async Task<IActionResult> GetMyToken([FromServices] TokenStateService tokenService)
     {
-        var userId = User.FindFirst("sub")?.Value!;
+        var userId = User.FindFirst("sub")?.Value;
+        
+        if (string.IsNullOrEmpty(userId))
+            return Unauthorized(new { message = "User identifier missing from token" });
+            
         var session = await tokenService.GetTokenAsync(userId);
 
         if (session == null || session.IsExpired)
@@ -182,5 +186,3 @@ public class ETagRequest
     public WeatherForecast Forecast { get; set; } = null!;
     public string ETag { get; set; } = null!;
 }
-
-
