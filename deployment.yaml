@@ -26,12 +26,18 @@ spec:
           value: Development
         - name: ASPNETCORE_URLS
           value: "http://+:8080" # Listen on all network interfaces
-        - name: Oidc__Authority
+        # API fetches signing keys over the cluster DNS; browsers (Scalar) use the port-forwarded URL
+        - name: Keycloak__Authority
+          value: "http://keycloak-service:8080/realms/demo"
+        - name: Keycloak__PublicAuthority
           value: "http://localhost:8081/realms/demo"
-        - name: Oidc__MetadataAddress
-          value: "http://keycloak-service:8080/realms/demo/.well-known/openid-configuration"
-        - name: Oidc__ClientSecret
-          value: "7Q7tCTL0yJNw2sP0mCh3TPjCSP8GkkQm"
+        - name: Keycloak__RequireHttpsMetadata
+          value: "false"
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              name: spim-db-secret
+              key: connectionString
         livenessProbe:
           httpGet:
             path: /health/ready

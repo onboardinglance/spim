@@ -8,13 +8,6 @@ spec:
   version: v1
   metadata:
   - name: connectionString
-    # value: |
-    #   host=postgres-postgresql.infra.svc.cluster.local
-    #   port=5432
-    #   user=dapr
-    #   password=StrongPassword123
-    #   dbname=daprdb
-    #   sslmode=disable
     secretKeyRef:
       name: postgres-secret
       key: connectionString

@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Spim.Application/Spim.Application.csproj" />
+    <Project Path="src/Spim.Domain/Spim.Domain.csproj" />
+    <Project Path="src/Spim.Infrastructure/Spim.Infrastructure.csproj" />
+    <Project Path="src/Spim.Persistence/Spim.Persistence.csproj" />
+    <Project Path="src/Spim.Web/Spim.Web.csproj" />
+  </Folder>
+</Solution>

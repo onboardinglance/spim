@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:5157
+# Paste an access token obtained from Keycloak (or use the Scalar UI at /scalar to sign in).
+@token = <access-token>
+
+GET {{baseUrl}}/api/weather-forecasts
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}/api/weather-forecasts/1
+Authorization: Bearer {{token}}
+
+###
+
+POST {{baseUrl}}/api/weather-forecasts
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "date": "2026-10-21",
+  "temperatureC": 22,
+  "summary": null
+}
+
+###
+
+PUT {{baseUrl}}/api/weather-forecasts/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "date": "2026-10-22",
+  "temperatureC": 30,
+  "summary": "Hot and sunny"
+}
+
+###
+
+DELETE {{baseUrl}}/api/weather-forecasts/1
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}/health/ready
