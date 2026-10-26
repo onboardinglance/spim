@@ -38,9 +38,28 @@ create the secret so that it is stored in kubernetes and not in plain
 
 
 
+# Project structure
+- `src/Spim.Domain`: domain entities and business rules.
+- `src/Spim.Application`: application services, DTOs, and persistence abstractions.
+- `src/Spim.Persistence`: Dapr state-store implementations.
+- `src/Spim.Infrastructure`: dependency registration and external-service wiring.
+- `src/Spim.Web`: ASP.NET Core API, authentication, health checks, OpenAPI, and Scalar.
+
 # Running locally
-## To run the dotnet backend with the dapr sidecar (must run dapr init first before u will have the sidecar) 
-`dapr run --app-id dapr-demo --app-port 5157 --dapr-http-port 3500 --resources-path ./components -- dotnet run` 
+Build the .NET 10 solution:
+`dotnet build Spim.slnx`
+
+Run the Web API:
+`dotnet run --project src/Spim.Web/Spim.Web.csproj --launch-profile Spim.Web`
+
+Open Scalar at `http://localhost:5157/scalar/v1`. The OpenAPI document is at `http://localhost:5157/openapi/v1.json`; readiness is at `http://localhost:5157/health/ready`.
+
+The generated forecast route works without Dapr: `GET http://localhost:5157/WeatherForecast`.
+
+To test Dapr state-store routes, initialize Dapr once with `dapr init`, then start the API with the local components:
+`dapr run --app-id spim --app-port 5157 --dapr-http-port 3500 --resources-path ./components -- dotnet run --project src/Spim.Web/Spim.Web.csproj --launch-profile Spim.Web`
+
+The local `statestore` component expects Redis at `localhost:6379`. Dapr's local initialization normally provides it. The authenticated token endpoint additionally requires a reachable Keycloak instance.
 
 
 ## kubectl commands ##

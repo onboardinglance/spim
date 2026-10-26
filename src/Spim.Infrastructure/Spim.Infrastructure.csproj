@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Spim.Application\Spim.Application.csproj" />
+    <ProjectReference Include="..\Spim.Persistence\Spim.Persistence.csproj" />
+    <PackageReference Include="Dapr.Client" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
+</Project>

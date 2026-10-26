@@ -50,3 +50,15 @@ C:\Users\user\Documents\Projects\dapr-demo\dapr-demo\bin\Debug\net10.0\Microsoft
 C:\Users\user\Documents\Projects\dapr-demo\dapr-demo\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\user\Documents\Projects\dapr-demo\dapr-demo\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\user\Documents\Projects\dapr-demo\dapr-demo\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.csproj.AssemblyReference.cache
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.AssemblyInfoInputs.cache
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.AssemblyInfo.cs
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.csproj.CoreCompileInputs.cache
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.sourcelink.json
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.dll
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\refint\dapr-demo.dll
+C:\Users\Dev\Documents\GitHub\spim\obj\Debug\net10.0\dapr-demo.pdb

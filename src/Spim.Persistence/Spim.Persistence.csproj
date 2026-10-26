@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Spim.Application\Spim.Application.csproj" />
+    <PackageReference Include="Dapr.Client" />
+  </ItemGroup>
+</Project>
